@@ -1,6 +1,6 @@
 package ch.vincent_genecand.bfh.prog2.mail2png;
 
-import java.awt.Font;
+import java.awt.Image;
 
 import javax.swing.JFrame;
 import javax.swing.JPanel;
@@ -9,12 +9,13 @@ public class Mail2PNG extends JFrame {
 
     private static final long serialVersionUID = 1L;
 
-    private final static String NAME = "Mail --> PNG";
+    private final static String NAME = "mail2png";
+    private final static Image ICON = String2ImageConvertor.getStringAsImage("@");
 
     public Mail2PNG() {
         this.setTitle(Mail2PNG.NAME);
         this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setIconImage(String2ImageConvertor.getStringAsImage("@", new Font("Trebuchet MS", Font.BOLD, 20)));
+        this.setIconImage(Mail2PNG.ICON);
         this.setResizable(false);
 
         JPanel panel = new EMailImagePanel();

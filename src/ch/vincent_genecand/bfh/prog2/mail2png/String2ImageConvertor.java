@@ -12,32 +12,32 @@ import java.awt.image.ImageProducer;
 
 public class String2ImageConvertor {
 
-    private final static Font FONT = new Font("Trebuchet MS", Font.BOLD, 24);
-    private final static Color FONT_COLOR = Color.BLACK;
+    private final static Font DEFAULT_FONT = new Font("Tahoma", Font.BOLD, 24);
+    private final static Color DEFAULT_FONT_COLOR = Color.BLACK;
 
     private String2ImageConvertor() {
     }
 
-    public static BufferedImage getStringAsImage(String string) {
-        return String2ImageConvertor.getStringAsImage(string, FONT);
+    public static BufferedImage getStringAsImage(String text) {
+        return String2ImageConvertor.getStringAsImage(text, DEFAULT_FONT, DEFAULT_FONT_COLOR);
     }
 
-    public static BufferedImage getStringAsImage(String string, Font font) {
+    public static BufferedImage getStringAsImage(String text, Font font, Color color) {
         BufferedImage img = new BufferedImage(1, 1, BufferedImage.TYPE_INT_ARGB);
         FontMetrics fm = img.createGraphics().getFontMetrics(font);
 
-        int stringWidth = fm.stringWidth(string);
+        int stringWidth = fm.stringWidth(text);
         int stringHeight = fm.getMaxAscent() + fm.getMaxDescent();
         int stringBaseline = fm.getMaxAscent();
 
-        img = new BufferedImage(stringWidth, stringHeight, BufferedImage.TYPE_INT_ARGB);
+        img = new BufferedImage(stringWidth > 0 ? stringWidth : 1, stringHeight > 0 ? stringHeight : 1, BufferedImage.TYPE_INT_ARGB);
         Graphics g = img.createGraphics();
 
-        g.setColor(FONT_COLOR);
+        g.setColor(color);
         g.setFont(font);
-        g.drawString(string, 0, stringBaseline);
+        g.drawString(text, 0, stringBaseline);
 
-        return String2ImageConvertor.makeColorTransparent(img, FONT_COLOR);
+        return String2ImageConvertor.makeColorTransparent(img, color);
     }
 
     private static BufferedImage image2BufferedImage(Image img) {
