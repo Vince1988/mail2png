@@ -108,18 +108,18 @@ public class EMailImagePanel extends JPanel implements KeyListener, ActionListen
             JFileChooser fc = new EMailFileChooser();
             fc.setSelectedFile(new File(this.addressInput.getText() + ".png"));
 
-            switch (fc.showSaveDialog(this)) {
-            case JFileChooser.APPROVE_OPTION:
+            if (fc.showSaveDialog(this) == JFileChooser.APPROVE_OPTION) {
                 File file = fc.getSelectedFile();
+
+                if (!file.getName().toLowerCase().endsWith(".png")) {
+                    file = new File(file + ".png");
+                }
 
                 if (!file.exists() || this.confirmOverride(file) == JOptionPane.YES_OPTION) {
                     this.saveAs(file);
                 }
-
-                break;
-            default:
-                break;
             }
+
         }
     }
 
@@ -131,10 +131,6 @@ public class EMailImagePanel extends JPanel implements KeyListener, ActionListen
     }
 
     private void saveAs(File file) {
-        if (!file.getName().toLowerCase().endsWith(".png")) {
-            file = new File(file + ".png");
-        }
-
         try {
             ImageIO.write(this.addressInput.getImage(), "PNG", file);
         } catch (IOException e) {
