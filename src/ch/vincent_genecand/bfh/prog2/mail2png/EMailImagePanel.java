@@ -111,12 +111,23 @@ public class EMailImagePanel extends JPanel implements KeyListener, ActionListen
             switch (fc.showSaveDialog(this)) {
             case JFileChooser.APPROVE_OPTION:
                 File file = fc.getSelectedFile();
-                this.saveAs(file);
+
+                if (!file.exists() || this.confirmOverride(file) == JOptionPane.YES_OPTION) {
+                    this.saveAs(file);
+                }
+
                 break;
             default:
                 break;
             }
         }
+    }
+
+    private int confirmOverride(File file) {
+        String title = "Confirm Save As";
+        String msg = file.getName() + " allready exists.\nDo you want to replace it?";
+
+        return JOptionPane.showConfirmDialog(this, msg, title, JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
     }
 
     private void saveAs(File file) {
