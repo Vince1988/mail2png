@@ -18,6 +18,10 @@ public class EMailTextField extends JTextField {
     private FontStyle fontStyle;
 
     public EMailTextField() {
+        this.fontFamily = "Trebuchet MS";
+        this.fontSize = 22;
+        this.fontColor = Color.BLACK;
+        this.fontStyle = FontStyle.PLAIN;
     }
 
     public EMailTextField(String text) {
